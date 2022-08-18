@@ -14,6 +14,14 @@ type Pod struct {
 	v1.Pod
 }
 
+func (p *Pod) Delete() {
+	c := clientSet.GetClientset()
+	err := c.CoreV1().Pods("openfaas-fn").Delete(context.Background(), p.Name, metav1.DeleteOptions{})
+	if err != nil {
+		klog.Fatal(err)
+	}
+}
+
 type PodList []Pod
 
 // gets list if nodes from cluster

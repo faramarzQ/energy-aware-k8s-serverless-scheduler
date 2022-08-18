@@ -8,7 +8,7 @@ func main() {
 	bindNodesEnergyStatus()
 }
 
-// Bid new energy status to each node
+// Bind new energy status to each node
 func bindNodesEnergyStatus() {
 	nodes := cluster.ListNodes()
 
