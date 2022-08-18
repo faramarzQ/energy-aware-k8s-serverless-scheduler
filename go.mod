@@ -1,11 +1,11 @@
-module energy_aware_k8s_serverless_scheduler/energy_adapter
+module energy-aware-k8s-serverless-scheduler
 
 go 1.17
 
 require (
-	k8s.io/api v0.24.3
-	k8s.io/apimachinery v0.24.3
-	k8s.io/client-go v0.24.3
+	k8s.io/api v0.24.4
+	k8s.io/apimachinery v0.24.4
+	k8s.io/client-go v0.24.4
 	k8s.io/klog v1.0.0
 )
 
