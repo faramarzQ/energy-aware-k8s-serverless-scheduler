@@ -1,0 +1,179 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: fibo
+  namespace: openfaas-fn
+  uid: a9d51efc-aa8d-42e4-b64c-b08220c35276
+  resourceVersion: '63505'
+  generation: 11
+  creationTimestamp: '2022-07-07T14:35:12Z'
+  labels:
+    faas_function: fibo
+  annotations:
+    deployment.kubernetes.io/revision: '4'
+    prometheus.io.scrape: 'false'
+  managedFields:
+    - manager: faas-netes
+      operation: Update
+      apiVersion: apps/v1
+      time: '2022-07-07T14:35:12Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:annotations:
+            .: {}
+            f:prometheus.io.scrape: {}
+          f:labels:
+            .: {}
+            f:faas_function: {}
+        f:spec:
+          f:progressDeadlineSeconds: {}
+          f:revisionHistoryLimit: {}
+          f:selector: {}
+          f:strategy:
+            f:rollingUpdate:
+              .: {}
+              f:maxSurge: {}
+              f:maxUnavailable: {}
+            f:type: {}
+          f:template:
+            f:metadata:
+              f:annotations:
+                .: {}
+                f:prometheus.io.scrape: {}
+              f:labels:
+                .: {}
+                f:faas_function: {}
+              f:name: {}
+            f:spec:
+              f:containers:
+                k:{"name":"fibo"}:
+                  .: {}
+                  f:image: {}
+                  f:name: {}
+                  f:ports:
+                    .: {}
+                    k:{"containerPort":8080,"protocol":"TCP"}:
+                      .: {}
+                      f:containerPort: {}
+                      f:name: {}
+                      f:protocol: {}
+                  f:resources: {}
+                  f:securityContext:
+                    .: {}
+                    f:allowPrivilegeEscalation: {}
+                    f:readOnlyRootFilesystem: {}
+                  f:terminationMessagePath: {}
+                  f:terminationMessagePolicy: {}
+              f:dnsPolicy: {}
+              f:enableServiceLinks: {}
+              f:restartPolicy: {}
+              f:securityContext: {}
+              f:terminationGracePeriodSeconds: {}
+    - manager: dashboard
+      operation: Update
+      apiVersion: apps/v1
+      time: '2022-07-22T09:55:55Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:spec:
+          f:template:
+            f:spec:
+              f:containers:
+                k:{"name":"fibo"}:
+                  f:imagePullPolicy: {}
+              f:schedulerName: {}
+    - manager: kube-controller-manager
+      operation: Update
+      apiVersion: apps/v1
+      time: '2022-08-11T05:58:44Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:annotations:
+            f:deployment.kubernetes.io/revision: {}
+        f:status:
+          f:availableReplicas: {}
+          f:conditions:
+            .: {}
+            k:{"type":"Available"}:
+              .: {}
+              f:lastTransitionTime: {}
+              f:lastUpdateTime: {}
+              f:message: {}
+              f:reason: {}
+              f:status: {}
+              f:type: {}
+            k:{"type":"Progressing"}:
+              .: {}
+              f:lastTransitionTime: {}
+              f:lastUpdateTime: {}
+              f:message: {}
+              f:reason: {}
+              f:status: {}
+              f:type: {}
+          f:observedGeneration: {}
+          f:readyReplicas: {}
+          f:replicas: {}
+          f:updatedReplicas: {}
+      subresource: status
+spec:
+  replicas: 6
+  selector:
+    matchLabels:
+      faas_function: fibo
+  template:
+    metadata:
+      name: fibo
+      # creationTimestamp: null
+      labels:
+        faas_function: fibo
+      annotations:
+        prometheus.io.scrape: 'false'
+    spec:
+      containers:
+        - name: fibo
+          image: fibonacci:vlatest
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: Never
+          securityContext:
+            readOnlyRootFilesystem: false
+            allowPrivilegeEscalation: false
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      schedulerName: energy-aware-scheduler
+      enableServiceLinks: false
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600
+status:
+  observedGeneration: 11
+  replicas: 1
+  updatedReplicas: 1
+  readyReplicas: 1
+  availableReplicas: 1
+  conditions:
+    - type: Progressing
+      status: 'True'
+      lastUpdateTime: '2022-07-22T09:56:04Z'
+      lastTransitionTime: '2022-07-07T14:35:12Z'
+      reason: NewReplicaSetAvailable
+      message: ReplicaSet "fibo-5dcf6d9577" has successfully progressed.
+    - type: Available
+      status: 'True'
+      lastUpdateTime: '2022-08-11T05:58:44Z'
+      lastTransitionTime: '2022-08-11T05:58:44Z'
+      reason: MinimumReplicasAvailable
+      message: Deployment has minimum availability.
