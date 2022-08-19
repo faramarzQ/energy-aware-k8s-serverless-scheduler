@@ -61,6 +61,38 @@ func (n Node) SetEnergyStatus(status string) {
 	}
 }
 
+func (n Node) ListPods() PodList {
+	c := clientSet.GetClientset()
+
+	pods, err := c.CoreV1().Pods("openfaas-fn").List(context.Background(), metav1.ListOptions{
+		FieldSelector: "spec.nodeName=" + n.Name,
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	podList := PodList{}
+	for _, node := range pods.Items {
+		podList = append(podList, Pod{node})
+	}
+
+	return podList
+}
+
+func (n Node) IfNodeCapacityIsFull() bool {
+	if len(n.ListPods()) == 4 {
+		return true
+	}
+	return false
+}
+
+func (n Node) IfNodeIsPowerLess() bool {
+	if n.EnergyStatus() == "powerless" {
+		return true
+	}
+	return false
+}
+
 type NodeList []Node
 
 // gets list if nodes from cluster
