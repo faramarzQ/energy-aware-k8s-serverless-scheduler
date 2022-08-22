@@ -7,7 +7,10 @@ import (
 )
 
 func main() {
-	fmt.Println("running")
+	fmt.Println("--------------------------")
+	fmt.Println("Running Energy Adapter")
+	fmt.Println("--------------------------")
+
 	runFunctionOffloader()
 }
 
@@ -21,6 +24,7 @@ func runFunctionOffloader() {
 		if exists {
 			// delete the pod so that the Deployment creates it again (offloading)
 			pod.Delete()
+			fmt.Println("Offloading pod: ", pod.Name)
 		}
 	}
 }

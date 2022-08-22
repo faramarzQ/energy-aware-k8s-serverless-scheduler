@@ -96,7 +96,7 @@ func (n Node) IfNodeIsPowerLess() bool {
 type NodeList []Node
 
 // gets list if nodes from cluster
-func getNodesFomCluster() *v1.NodeList {
+func listNodesFomCluster() *v1.NodeList {
 	c := clientSet.GetClientset()
 	nodes, err := c.CoreV1().Nodes().List(context.Background(), metav1.ListOptions{})
 	if err != nil {
@@ -107,7 +107,7 @@ func getNodesFomCluster() *v1.NodeList {
 }
 
 func ListNodes() NodeList {
-	nodes := getNodesFomCluster()
+	nodes := listNodesFomCluster()
 
 	nodeList := NodeList{}
 	for _, node := range nodes.Items {

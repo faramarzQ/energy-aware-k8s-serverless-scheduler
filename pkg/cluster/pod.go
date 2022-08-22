@@ -24,7 +24,7 @@ func (p *Pod) Delete() {
 
 type PodList []Pod
 
-// gets list if nodes from cluster
+// lists if nodes from cluster
 func getPodsFomCluster() *v1.PodList {
 	c := clientSet.GetClientset()
 	pods, err := c.CoreV1().Pods("openfaas-fn").List(context.Background(), metav1.ListOptions{})
